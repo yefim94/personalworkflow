@@ -16,8 +16,8 @@ import Calender from "./sub-components/Calender"
 const Right = () => {
   const {uid, photoURL, displayName} = auth.currentUser;
   return (
-    <div style={{padding: "1em",  flex: "1 1 auto"}}>
-    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "auto"}}>
+    <div style={{padding: "0em 1em 1em 1em", marginTop: "1EM", flex: "1 1 auto", overflow: "scroll"}}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "auto", position: "sticky", top: 0, backgroundColor: "#fff"}}>
     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
       <FontAwesomeIcon style={{
         marginRight: "10px",
