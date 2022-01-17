@@ -2,7 +2,7 @@ import React from 'react'
 
 const Projects = () => {
   return (
-    <div>
+    <div style={{margin: "3em"}}>
       project
     </div>
   )

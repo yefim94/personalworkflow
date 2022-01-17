@@ -2,7 +2,7 @@ import React from 'react'
 
 const Chat = () => {
   return (
-    <div>
+    <div style={{margin: "3em"}}>
       chat
     </div>
   )

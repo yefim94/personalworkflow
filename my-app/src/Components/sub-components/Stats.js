@@ -2,7 +2,7 @@ import React from 'react'
 
 const Stats = () => {
   return (
-    <div>
+    <div style={{margin: "3em"}}>
       stats
     </div>
   )

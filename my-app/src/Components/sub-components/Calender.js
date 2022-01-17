@@ -2,7 +2,7 @@ import React from 'react'
 
 const Calender = () => {
   return (
-    <div>
+    <div style={{margin: "3em"}}>
       calender
     </div>
   )

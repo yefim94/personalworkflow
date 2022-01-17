@@ -17,7 +17,7 @@ const Right = () => {
   const {uid, photoURL, displayName} = auth.currentUser;
   return (
     <div style={{padding: "1em",  flex: "1 1 auto"}}>
-    <div style={{display: "flex", alignItems: "center", justifyContent: "right", flexDirection: "row", width: "auto"}}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "auto"}}>
     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
       <FontAwesomeIcon style={{
         marginRight: "10px",
@@ -29,6 +29,10 @@ const Right = () => {
       variant="standard" 
       style={{marginRight: "10PX", transform: "translateY(-8px)"}}/>
     </div>
+    <div style={{
+      display: "flex", 
+      alignItems: "center"
+    }}>
     <FontAwesomeIcon style={{
       marginRight: "10px",
       color: "#C9C9C9",
@@ -41,6 +45,7 @@ const Right = () => {
     }} icon={faBell} />
       <h3 style={{marginRight: "20px", fontWeight: "600", width: 'auto', whiteSpace: "nowrap"}}>{displayName}</h3>
     <img src={photoURL} width="50" height="50"  style={{borderRadius: "50%"}}/>
+    </div>
     </div>
     <Routes>
             <Route path="/" element={<Projects />}/>
