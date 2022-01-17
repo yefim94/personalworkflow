@@ -1,7 +1,22 @@
 import React, { useState } from 'react'
 import {useEffect} from "react"
-import { collection, doc, setDoc, query, getDocs, onSnapshot} from "firebase/firestore"; 
+import { collection, doc, setDoc, query, getDocs, onSnapshot, addDoc} from "firebase/firestore"; 
 import {db} from "/Users/yefimblokh/Desktop/bigprojectbusiness/my-app/src/firebase-config"
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 const Projects = () => {
   const [todos, setTodos] = useState([])
   const todosRef = collection(db, "todos");
@@ -16,9 +31,19 @@ const Projects = () => {
     }
     getData()
   }, [])
+  async function addTodo () {
+    handleOpen()
+   {/** await addDoc(todosRef, {
+      title: "",
+      desc: ""
+    }) */}
+  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
-    <div style={{margin: "3em"}}>
-      <h1 style={{fontWeight: "600"}}>Project</h1>
+    <div style={{margin: "3em 3em 3em 3em"}}>
+      <h1 style={{fontWeight: "600", position: "sticky", top: "50px", backgroundColor: "#fff"}}>Project</h1>
       <section style={{backgroundColor: "#F5FAF8", padding: "1em", borderRadius: "14px", overflow: "scroll"}}>
         <div style={{display: "flex", widtgh: "100%", justifyContent: "space-between", alignItems: "center"}}>
         <h3>To do</h3>
@@ -38,7 +63,22 @@ const Projects = () => {
           outline: "none",
           width: "100%",
           cursor: "pointer"
-        }}>+</button>
+        }} onClick={addTodo}>+</button>
+              <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Title: <input />
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+           Description: <input />
+          </Typography>
+        </Box>
+      </Modal>
      {todos.map((doc, key) => (
           <div key={key} style={{backgroundColor: "#fff", padding: "10px", borderRadius: "10px", marginTop: "1em"}}>
           <h3>{doc.title}</h3>
