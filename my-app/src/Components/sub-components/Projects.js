@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {useEffect} from "react"
-import { collection, doc, setDoc, query, getDocs, onSnapshot, addDoc} from "firebase/firestore"; 
+import { collection, doc, setDoc, query, getDocs, onSnapshot, addDoc, orderBy, limit, Timestamp} from "firebase/firestore"; 
 import {db} from "/Users/yefimblokh/Desktop/bigprojectbusiness/my-app/src/firebase-config"
+import { auth } from '/Users/yefimblokh/Desktop/bigprojectbusiness/my-app/src/firebase-config';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -9,20 +10,26 @@ import Box from '@mui/material/Box';
 const style = {
   position: 'absolute',
   top: '50%',
+  borderRadius: "15px",
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 const Projects = () => {
   const [todos, setTodos] = useState([])
+  const [title, setTitle] = useState("")
+  const [desc, setDesc] = useState("")
   const todosRef = collection(db, "todos");
+  const {uid, photoURL, displayName} = auth.currentUser;
+  async function getUID () {
+    return uid;
+  }
   useEffect(() => {
     const getData = async () => {
-      const q = query(todosRef)
+      const q = query(todosRef, orderBy("createdAt"))
       onSnapshot(q, (snapshot) => {
         let todos = []
         snapshot.forEach((doc) => {todos.push(doc.data())})
@@ -31,16 +38,23 @@ const Projects = () => {
     }
     getData()
   }, [])
-  async function addTodo () {
+  async function openModel () {
     handleOpen()
-   {/** await addDoc(todosRef, {
-      title: "",
-      desc: ""
-    }) */}
   }
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  async function addTaskDatabase () {
+     await addDoc(todosRef, {
+      title: title,
+      desc: desc,
+      createdAt: Timestamp.fromDate(new Date()),
+      uid: uid
+    }) 
+    setTitle("")
+    setDesc("")
+    handleClose()
+  }
   return (
     <div style={{margin: "3em 3em 3em 3em"}}>
       <h1 style={{fontWeight: "600", position: "sticky", top: "50px", backgroundColor: "#fff"}}>Project</h1>
@@ -63,7 +77,7 @@ const Projects = () => {
           outline: "none",
           width: "100%",
           cursor: "pointer"
-        }} onClick={addTodo}>+</button>
+        }} onClick={openModel}>+</button>
               <Modal
         open={open}
         onClose={handleClose}
@@ -71,15 +85,24 @@ const Projects = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <h3>Add Task</h3>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Title: <input />
+            Title: <input type="text" onChange={(e) => {setTitle(e.target.value)}} value={title} />
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-           Description: <input />
+           Description: <input type="text"  onChange={(e) => {setDesc(e.target.value)}} value={desc}/>
           </Typography>
+          <button style={{
+            backgroundColor: "red",
+            border: "none",
+            color: "#fff",
+            padding: "10px"
+            ,borderRadius: "5px 10px 5px 10px",
+            marginTop: "1EM",
+          }} onClick={addTaskDatabase}>Add</button>
         </Box>
       </Modal>
-     {todos.map((doc, key) => (
+     {todos.map((doc, key, uid) => (
           <div key={key} style={{backgroundColor: "#fff", padding: "10px", borderRadius: "10px", marginTop: "1em"}}>
           <h3>{doc.title}</h3>
           <p>{doc.desc}</p>
