@@ -10,14 +10,14 @@ import { getFirestore } from "firebase/firestore"
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
 <<<<<<< HEAD
-  apiKey: "AIzaSyDrFCotC0ZAQllnY6JWJIvzkzEwuDVmZNU",
-  authDomain: "alumna-d1205.firebaseapp.com",
-  databaseURL: "https://alumna-d1205-default-rtdb.firebaseio.com",
+  apiKey:,
+  authDomain: "-.com",
+  databaseURL: ,
   projectId: "alumna-d1205",
-  storageBucket: "alumna-d1205.appspot.com",
-  messagingSenderId: "454008853034",
-  appId: "1:454008853034:web:dc37799b84aa72f9506953",
-  measurementId: "G-266J5YDPMR"
+  storageBucket: ,
+  messagingSenderId: "",
+  appId: "1:45400853",
+  measurementId: ""
 =======
   apiKey: apiKey,
   authDomain: authDomain,
@@ -27,7 +27,7 @@ const firebaseConfig = {
   messagingSenderId:messagingSenderId ,
   appId: appId ,
   measurementId:appId 
->>>>>>> 47fe98a2b2c9d16e2abd662a05047c1bbe7e10a9
+>>>>>>> 
 };
 
 // Initialize Firebase
