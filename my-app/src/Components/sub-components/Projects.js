@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {useEffect} from "react"
-import { collection, doc, setDoc, query, getDocs, onSnapshot, addDoc, orderBy, limit, Timestamp} from "firebase/firestore"; 
+import { collection, doc, setDoc, query, getDocs, onSnapshot, addDoc, orderBy, limit, Timestamp, where} from "firebase/firestore"; 
 import {db} from "/Users/yefimblokh/Desktop/bigprojectbusiness/my-app/src/firebase-config"
 import { auth } from '/Users/yefimblokh/Desktop/bigprojectbusiness/my-app/src/firebase-config';
 import Button from '@mui/material/Button';
@@ -29,7 +29,7 @@ const Projects = () => {
   }
   useEffect(() => {
     const getData = async () => {
-      const q = query(todosRef, orderBy("createdAt"))
+      const q = await query(todosRef, where('uid', '==', uid), orderBy("createdAt"))
       onSnapshot(q, (snapshot) => {
         let todos = []
         snapshot.forEach((doc) => {todos.push(doc.data())})
@@ -49,7 +49,7 @@ const Projects = () => {
       title: title,
       desc: desc,
       createdAt: Timestamp.fromDate(new Date()),
-      uid: uid
+      uid: uid,
     }) 
     setTitle("")
     setDesc("")
@@ -102,7 +102,7 @@ const Projects = () => {
           }} onClick={addTaskDatabase}>Add</button>
         </Box>
       </Modal>
-     {todos.map((doc, key, uid) => (
+     {todos.map((doc, key) => (
           <div key={key} style={{backgroundColor: "#fff", padding: "10px", borderRadius: "10px", marginTop: "1em"}}>
           <h3>{doc.title}</h3>
           <p>{doc.desc}</p>
