@@ -18,8 +18,8 @@ function App() {
   );
   return (
     <div className="App" style={{
-      height: "100vh"
-    }}>
+      height: "100vh",
+      backgroundColor: "white",    }}>
      {user ? <Dashboard /> : <Landing />}
     </div>
   );
